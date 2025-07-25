@@ -11,19 +11,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Tag and push
+          name: Create GitHub release
           command: |
-            tag="v0.0.<< pipeline.number >>"
-            git tag "$tag"
-            git push https://$GITHUB_TOKEN@github.com/tibber/prestop-signal.git "$tag"
-          environment:
-            GITHUB_TOKEN: $GITHUB_AUTH_TOKEN
+            gh release create "v0.0.<< pipeline.number >>" dist/* --generate-notes
       - run:
           name: Install GoReleaser
           command: |
             curl -sSfL https://goreleaser.com/static/run | bash -s -- release --clean
-          environment:
-            GITHUB_TOKEN: $GITHUB_AUTH_TOKEN
 
 workflows:
   version: 2
