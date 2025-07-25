@@ -18,10 +18,11 @@ jobs:
           name: Create GitHub release
           command: |
             gh release create "v0.0.<< pipeline.number >>"
-      - run:
-          name: Install and run GoReleaser
-          command: |
             curl -sSfL https://goreleaser.com/static/run | bash -s -- release --clean
+      # - run:
+      #     name: Install and run GoReleaser
+      #     command: |
+      #       curl -sSfL https://goreleaser.com/static/run | bash -s -- release --clean
 
 workflows:
   version: 2
