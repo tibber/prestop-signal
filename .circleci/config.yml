@@ -13,6 +13,7 @@ jobs:
     executor: golang
     steps:
       - checkout
+      - gh/setup
       - run:
           name: Create GitHub release
           command: |
