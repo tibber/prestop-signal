@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  gh: circleci/github-cli@2.6
-
 executors:
   golang:
     docker:
@@ -13,16 +10,18 @@ jobs:
     executor: golang
     steps:
       - checkout
-      - gh/setup
       - run:
-          name: Create GitHub release
+          name: Tag and push
           command: |
-            gh release create "v0.0.<< pipeline.number >>"
+            tag="v0.0.<< pipeline.number >>"
+            git config --global user.email "dev@tibber.com"
+            git config --global user.name "tibbercom-builduser"
+            git tag "$tag"
+            git push https://$GITHUB_TOKEN@github.com/tibber/prestop-signal.git "$tag"
+      - run:
+          name: Install and run GoReleaser
+          command: |
             curl -sSfL https://goreleaser.com/static/run | bash -s -- release --clean
-      # - run:
-      #     name: Install and run GoReleaser
-      #     command: |
-      #       curl -sSfL https://goreleaser.com/static/run | bash -s -- release --clean
 
 workflows:
   version: 2
