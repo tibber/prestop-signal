@@ -1,0 +1,14 @@
+version: 2
+project_name: prestop-signal
+builds:
+  - id: linux
+    main: ./cmd/prestop-signal
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+    ldflags: "-s -w"
+archives:
+  - format: tar.gz
+    files:
+      - README.md
+checksum:
+  name_template: checksums.txt

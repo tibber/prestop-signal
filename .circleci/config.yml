@@ -1,0 +1,32 @@
+version: 2.1
+
+executors:
+  golang:
+    docker:
+      - image: cimg/go:1.24
+
+jobs:
+  release:
+    executor: golang
+    steps:
+      - checkout
+      - run:
+          name: Install GoReleaser
+          command: |
+            curl -sSfL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | bash
+      - run:
+          name: Run GoReleaser (publish)
+          command: ./bin/goreleaser release --clean
+          environment:
+            GITHUB_TOKEN: $GITHUB_AUTH_TOKEN
+
+workflows:
+  version: 2
+  release:
+    jobs:
+      - release:
+          filters:
+            branches:
+              only: main
+          context:
+            - GITHUB

@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: prestop-signal
+  description: A tool to handle pre-stop signals in containerized environments.
+  annotations:
+    github.com/project-slug: tibber/prestop-signal
+    circleci.com/project-slug: gh/tibber/prestop-signal
+spec:
+  type: library
+  lifecycle: production
