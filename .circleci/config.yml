@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  gh: circleci/github-cli@2.6
+
 executors:
   golang:
     docker:
@@ -10,12 +13,13 @@ jobs:
     executor: golang
     steps:
       - checkout
+      - gh/setup
       - run:
           name: Create GitHub release
           command: |
-            gh release create "v0.0.<< pipeline.number >>" dist/* --generate-notes
+            gh release create "v0.0.<< pipeline.number >>"
       - run:
-          name: Install GoReleaser
+          name: Install and run GoReleaser
           command: |
             curl -sSfL https://goreleaser.com/static/run | bash -s -- release --clean
 
@@ -26,6 +30,8 @@ workflows:
       - release:
           filters:
             branches:
-              only: main
+              only:
+                - main
+                - toni/ci
           context:
             - GITHUB
