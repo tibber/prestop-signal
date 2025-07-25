@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  gh: circleci/github-cli@2.2.0
+
 executors:
   golang:
     docker:
@@ -26,6 +29,8 @@ workflows:
       - release:
           filters:
             branches:
-              only: main
+              only:
+                - main
+                - toni/ci
           context:
             - GITHUB
