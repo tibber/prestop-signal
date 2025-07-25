@@ -13,7 +13,7 @@ jobs:
       - run:
           name: Install GoReleaser
           command: |
-            curl -sfL https://goreleaser.com/static/run | bash
+            curl -sSfL https://goreleaser.com/static/run | bash -s -- release --clean
       - run:
           name: Run GoReleaser (publish)
           command: ./bin/goreleaser release --clean
