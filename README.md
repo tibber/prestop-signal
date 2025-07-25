@@ -1,2 +1,3 @@
 # prestop-signal
-Tool for signaling Kubernetes PreStop event to containers
+
+A tool to handle pre-stop signals in containerized environments.
